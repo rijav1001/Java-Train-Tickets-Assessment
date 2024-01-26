@@ -2,52 +2,38 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TrainTicketingService {
-    private TrainTicket t1;
-    private TrainTicket t2;
+    private Map<String, TrainTicket> tickets = new HashMap<>();
 
+    // API to purchase ticket
     public void purchaseTicket(TrainTicket ticket) {
-        if (t1 == null) {
-            t1 = ticket;
-        } else if (t2 == null) {
-            t2 = ticket;
-        } else {
-            System.out.println("Train is booked, try later!");
-        }
+        tickets.put(ticket.getUserEmail(), ticket);
     }
 
+    // API to get ticket details (receipt)
     public TrainTicket getTicketDetails(String userEmail) {
-        if (t1 != null && t1.getUserEmail().equals(userEmail)) {
-            return t1;
-        } else if (t2 != null && t2.getUserEmail().equals(userEmail)) {
-            return t2;
-        } else {
-            return null;
-        }
+        return tickets.get(userEmail);
     }
 
+    // API to show users and seat allocated by section
     public Map<String, String> getUserSeatsBySection(String section) {
         Map<String, String> userSeats = new HashMap<>();
-        if (t1 != null && t1.getSeatSection().equals(section)) {
-            userSeats.put(t1.getUserEmail(), t1.getSeatSection());
-        } else if (t2 != null && t2.getSeatSection().equals(section)) {
-            userSeats.put(t2.getUserEmail(), t2.getSeatSection());
+        for (TrainTicket ticket : tickets.values()) {
+            if (ticket.getSeatSection().equals(section)) {
+                userSeats.put(ticket.getUserEmail(), ticket.getSeatSection());
+            }
         }
         return userSeats;
     }
 
+    // API to remove user
     public void removeUser(String userEmail) {
-        if (t1 != null && t1.getUserEmail().equals(userEmail)) {
-            t1 = null;
-        } else if (t2 != null && t2.getUserEmail().equals(userEmail)) {
-            t2 = null;
-        }
+        tickets.remove(userEmail);
     }
 
+    // API to modify seat
     public void modifyUserSeat(String userEmail, String newSeatSection) {
-        if (t1 != null && t1.getUserEmail().equals(userEmail)) {
-            t1.setSeatSection(newSeatSection);
-        } else if (t2 != null && t2.getUserEmail().equals(userEmail)) {
-            t2.setSeatSection(newSeatSection);
+        if (tickets.containsKey(userEmail)) {
+            tickets.get(userEmail).setSeatSection(newSeatSection);
         }
     }
 }

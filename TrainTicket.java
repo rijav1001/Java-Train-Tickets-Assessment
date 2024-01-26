@@ -7,8 +7,6 @@ public class TrainTicket {
     private double pricePaid;
     private String seatSection;
 
-    // Constructors
-
     // getters
     public String getFrom() {
         return from;

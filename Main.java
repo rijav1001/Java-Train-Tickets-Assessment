@@ -13,7 +13,7 @@ public class Main {
         t1.setUserLastName("Doe");
         t1.setUserEmail("johndoe123@gmail.com");
         t1.setPricePaid(20.0);
-        t1.setSeatSection("A1");
+        t1.setSeatSection("A");
 
         // Ticket 2 details
         t2.setFrom("London");
@@ -22,7 +22,7 @@ public class Main {
         t2.setUserLastName("Smith");
         t2.setUserEmail("steve.smith@gmail.com");
         t2.setPricePaid(20.0);
-        t2.setSeatSection("A2");
+        t2.setSeatSection("B");
 
         // Purchase tickets
         ticketingService.purchaseTicket(t1);
@@ -33,19 +33,19 @@ public class Main {
         System.out.println("John's Ticket Details: " + johnsTicket);
 
         // View user seats by section
-        Map<String, String> seatsInSectionA = ticketingService.getUserSeatsBySection("A1");
-        System.out.println("Seats in Section A1: " + seatsInSectionA);
+        Map<String, String> seatsInSectionA = ticketingService.getUserSeatsBySection("A");
+        System.out.println("Seats in Section A: " + seatsInSectionA);
 
         // Remove a user
         ticketingService.removeUser("johndoe123@gmail.com");
         System.out.println("John's ticket removed.");
 
         // Modify user seat
-        ticketingService.modifyUserSeat("steve.smith@gmail.com", "A1");
-        System.out.println("Jane's seat modified to Section A1.");
+        ticketingService.modifyUserSeat("steve.smith@gmail.com", "A");
+        System.out.println("Jane's seat modified to Section A.");
 
         // View updated user seats by section
-        seatsInSectionA = ticketingService.getUserSeatsBySection("A1");
-        System.out.println("Seats in Section A1: " + seatsInSectionA);
+        seatsInSectionA = ticketingService.getUserSeatsBySection("A");
+        System.out.println("Seats in Section A: " + seatsInSectionA);
     }
 }
